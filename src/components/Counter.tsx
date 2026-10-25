@@ -11,7 +11,10 @@ export default function Counter({ to, suffix = "" }: { to: number; suffix?: stri
 
   useEffect(() => {
     if (!inView) return;
-    if (reduce) return;
+    if (reduce) {
+      setValue(to);
+      return;
+    }
     const controls = animate(0, to, {
       duration: 1.8,
       ease: "easeOut",
@@ -22,7 +25,7 @@ export default function Counter({ to, suffix = "" }: { to: number; suffix?: stri
 
   return (
     <span ref={ref}>
-      {(reduce ? to : value).toLocaleString("es-CO")}
+      {value.toLocaleString("es-CO")}
       {suffix}
     </span>
   );
