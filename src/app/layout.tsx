@@ -1,30 +1,34 @@
 import type { Metadata } from "next";
-import { Newsreader, Source_Sans_3 } from "next/font/google";
+import { Libre_Franklin, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 
-const newsreader = Newsreader({
-  variable: "--font-newsreader",
+const franklin = Libre_Franklin({
+  variable: "--font-display",
   subsets: ["latin"],
-  style: ["normal", "italic"],
-  axes: ["opsz"],
+  weight: ["700", "800"],
 });
 
-const source = Source_Sans_3({
-  variable: "--font-source",
+const sourceSerif = Source_Serif_4({
+  variable: "--font-text",
   subsets: ["latin"],
+  style: ["normal", "italic"],
+  weight: ["400", "600"],
 });
 
 export const metadata: Metadata = {
   title: "Mábel Lara | Periodista y politóloga",
   description:
-    "Periodista, politóloga e internacionalista colombiana. Más de veinte años en televisión y radio, y una etapa de servicio público en Cali.",
+    "Periodista y politóloga colombiana. Más de veinte años en televisión y radio, y casi tres al servicio de Cali.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es" className={`${newsreader.variable} ${source.variable} antialiased`}>
+    <html lang="es" className={`${franklin.variable} ${sourceSerif.variable}`}>
       <body>
+        <a href="#contenido" className="skip">
+          Saltar al contenido
+        </a>
         <SmoothScroll />
         {children}
       </body>

@@ -1,309 +1,322 @@
-import Counter from "@/components/Counter";
+import Outlets, { type Outlet } from "@/components/Outlets";
+import ParallaxImage from "@/components/ParallaxImage";
 import Reveal from "@/components/Reveal";
 
-const nav = [
-  ["Trayectoria", "#trayectoria"],
-  ["Servicio público", "#servicio"],
-  ["Su voz", "#voz"],
-  ["Libro", "#libro"],
-  ["Reconocimientos", "#reconocimientos"],
+const base = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const img = (file: string) => `${base}/media/${file}`;
+
+const outlets: Outlet[] = [
+  { name: "Caracol Radio", years: "2002", text: "Su primer trabajo en los medios nacionales: reportera deportiva. Volvería en 2019 a 6AM Hoy por Hoy." },
+  { name: "Telepacífico", years: "2004–2008", text: "Presenta Nuestra Herencia, el programa cultural del Pacífico que le da el Premio Simón Bolívar de Periodismo en 2007." },
+  { name: "Noticias Caracol", years: "2008–2017", text: "Casi una década al frente de las noticias: fin de semana, mediodía y primera emisión. Gana varios Premios India Catalina." },
+  { name: "Blu Radio", years: "2013–2017", text: "Integra Mañanas Blu y dirige los programas Blanco y Negro y Vive Cali." },
+  { name: "Noticias UNO", years: "2017–2020", text: "Presenta el informativo y vuelve a ganar el India Catalina a mejor presentadora de noticias." },
+  { name: "6AM Hoy por Hoy", years: "2019–2021", text: "Integra el programa matutino de Caracol Radio." },
+  { name: "Su pódcast", years: "desde 2021", text: "Lanza en Spotify su propio espacio sobre noticias de Colombia y América Latina." },
 ];
 
-const hechos = [
-  { dato: "2002", texto: "Inicia en los medios como reportera de Caracol Radio" },
-  { dato: "2024", texto: "Asume la Secretaría de Turismo de Cali" },
-  { dato: "2025", texto: "Publica su libro Pelo libre, alma libre" },
+const premios: [string, string][] = [
+  ["Premio Simón Bolívar de Periodismo, mejor programa cultural", "2007"],
+  ["Premios India Catalina, mejor presentadora de noticias", "2012–2019"],
+  ["Premios TVyNovelas, mejor presentadora de noticias", "2012"],
+  ["Embajadora de la Teletón en Colombia", "2017"],
 ];
 
-const periodismo = [
-  { year: "2002", title: "Caracol Radio", text: "Reportera deportiva. Su primer trabajo en los medios nacionales." },
-  { year: "2004", title: "Telepacífico", text: "Presenta Nuestra Herencia, programa cultural del Pacífico colombiano." },
-  { year: "2008", title: "Noticias Caracol", text: "Presentadora de noticias durante casi una década, en emisiones de fin de semana, mediodía y primera edición." },
-  { year: "2013", title: "Blu Radio", text: "Participa en Mañanas Blu y dirige los programas Blanco y Negro y Vive Cali." },
-  { year: "2017", title: "Noticias UNO", text: "Presenta el informativo hasta 2020." },
-  { year: "2019", title: "Caracol Radio y podcast", text: "Integra 6AM Hoy por Hoy y después lanza su propio podcast de noticias." },
+const cargos: [string, string][] = [
+  ["Cabeza de lista al Senado, Nuevo Liberalismo", "2022"],
+  ["Equipo negociador del Gobierno con el ELN", "2022–2023"],
+  ["Secretaria de Turismo de Cali", "2024–2025"],
+  ["Secretaria de Desarrollo Económico de Cali", "2025–2026"],
+  ["Proyectos estratégicos, Alcaldía de Cali", "2026"],
 ];
-
-const servicio = [
-  { year: "2022", title: "Mesa de diálogo con el ELN", text: "Integra el equipo negociador del Gobierno nacional, con mayoría de mujeres en la delegación." },
-  { year: "2024", title: "Secretaria de Turismo de Cali", text: "Prepara a la ciudad para la COP16 y acompaña la Feria de Cali y el Petronio Álvarez." },
-  { year: "2025", title: "Secretaria de Desarrollo Económico", text: "Emprendimiento, empleo, inversión y exportaciones de las empresas caleñas." },
-  { year: "2026", title: "Proyectos estratégicos", text: "Iniciativas transversales y posicionamiento internacional de Cali. Cierra su ciclo en la Alcaldía el 23 de octubre." },
-];
-
-const cifras = [
-  { n: 25000, suffix: "+", label: "visitantes internacionales en la COP16" },
-  { n: 3000, suffix: "+", label: "emprendimientos fortalecidos" },
-  { n: 1374, suffix: "", label: "personas vinculadas laboralmente" },
-  { n: 80, suffix: "", label: "empresas con su primera exportación" },
-];
-
-const pilares = [
-  { t: "Voz", p: "Una periodista que construyó su propia voz y la defiende, también cuando incomoda." },
-  { t: "Representación", p: "Quiere que más niñas afrocolombianas se vean en los medios, la ciencia y las instituciones." },
-  { t: "Legado", p: "Pensar lo que se deja a quienes vienen después es, para ella, parte del oficio." },
-];
-
-const premios = [
-  ["2007", "Premio Simón Bolívar de Periodismo", "Mejor programa cultural, por Nuestra Herencia"],
-  ["2012–2019", "Premios India Catalina", "Mejor presentadora de noticias, en varias ediciones"],
-  ["2012", "Premios TVyNovelas", "Mejor presentadora de noticias"],
-];
-
-function Eyebrow({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
-  return (
-    <p className={`text-sm font-semibold uppercase tracking-[0.22em] ${light ? "text-sol" : "text-esmeralda"}`}>
-      {children}
-    </p>
-  );
-}
 
 export default function Home() {
   return (
     <>
-      <div className="bg-tinta px-4 py-2 text-center text-sm text-marfil/85">
-        Versión de borrador en revisión
-      </div>
-
-      <header className="sticky top-0 z-20 border-b border-hueso bg-marfil/90 backdrop-blur">
-        <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4" aria-label="Principal">
-          <a href="#inicio" className="font-serif text-2xl font-semibold tracking-tight">
+      <header className="hero" id="inicio">
+        <div className="hero-top" />
+        <div className="hero-bottom" />
+        <div className="hero-bar">
+          <a href="#inicio" className="wordmark">
             Mábel Lara
           </a>
-          <ul className="hidden items-center gap-7 text-[15px] lg:flex">
-            {nav.map(([label, href]) => (
-              <li key={href}>
-                <a href={href} className="text-tinta/80 transition-colors hover:text-esmeralda">
-                  {label}
-                </a>
-              </li>
-            ))}
-            <li>
-              <a href="#contacto" className="rounded-full bg-tinta px-5 py-2 font-medium text-marfil transition hover:bg-esmeralda">
-                Contacto
-              </a>
-            </li>
-          </ul>
-        </nav>
+          <a href="#contacto" className="btn">
+            Contacto
+          </a>
+        </div>
+        <div className="hero-title">
+          <h1 className="title">
+            Mábel
+            <br />
+            Lara
+          </h1>
+        </div>
+        <p className="hero-lede">
+          Periodista y politóloga. Veinte años contando Colombia en televisión y radio, y casi tres al servicio de Cali.
+        </p>
       </header>
 
-      <main>
-        <section id="inicio" className="mx-auto grid max-w-6xl items-center gap-14 px-6 pb-20 pt-16 md:grid-cols-[1.15fr_0.85fr] md:pt-24">
-          <div>
+      <main id="contenido">
+        <section className="field-ink wrap intro" aria-labelledby="intro-h">
+          <Reveal>
+            <h2 id="intro-h">
+              Prestada al
+              <br />
+              servicio público
+            </h2>
+          </Reveal>
+          <Reveal delay={0.12} className="intro-body">
+            <p>
+              Así se presenta en Instagram. Nacida en Puerto Tejada, Cauca, dejó la cámara para trabajar por Cali y hoy
+              vuelve a contar.
+            </p>
+            <small>Instagram @mabellaranews, 599 mil seguidores</small>
+          </Reveal>
+        </section>
+
+        <section className="wrap section work" id="trayectoria" aria-labelledby="work-h">
+          <Reveal>
+            <h2 id="work-h">Trayectoria en medios</h2>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <Outlets outlets={outlets} />
+          </Reveal>
+        </section>
+
+        <figure className="band" style={{ margin: 0 }}>
+          <ParallaxImage
+            src={img("festival-petronio-alvarez-cali.jpg")}
+            alt="Cintas de colores colgadas en el Festival Petronio Álvarez, en Cali, con visitantes entre ellas"
+            width={1920}
+            height={1277}
+            shift={7}
+          />
+          <figcaption>Festival Petronio Álvarez, Cali</figcaption>
+        </figure>
+
+        <section className="field-green wrap section stats" id="gestion" aria-labelledby="stats-h">
+          <div className="stats-text">
             <Reveal>
-              <Eyebrow>Periodista · Politóloga · Internacionalista</Eyebrow>
+              <h2 id="stats-h">Gestión en Cali</h2>
             </Reveal>
-            <Reveal delay={0.08}>
-              <h1 className="mt-6 font-serif text-6xl font-medium leading-[1.02] tracking-tight sm:text-8xl">
-                Mábel Lara
-              </h1>
-            </Reveal>
-            <Reveal delay={0.16}>
-              <p className="mt-8 max-w-xl font-serif text-2xl leading-snug text-tinta/85">
-                Más de dos décadas contando el país en televisión y radio, y una etapa de servicio público al frente
-                de la agenda económica y turística de Cali.
+            <Reveal delay={0.1}>
+              <p className="stats-sentence">
+                Desde abril de 2025, Cali fortaleció más de <b>3.000&nbsp;emprendimientos</b>, empleó a{" "}
+                <b>1.374&nbsp;personas</b> y llevó a <b>80&nbsp;empresas</b> a exportar por primera vez.
               </p>
             </Reveal>
-            <Reveal delay={0.24}>
-              <div className="mt-10 flex flex-wrap gap-4">
-                <a href="#trayectoria" className="rounded-full bg-esmeralda px-8 py-3.5 font-semibold text-marfil transition hover:bg-tinta">
-                  Conocer su trayectoria
-                </a>
-                <a href="#contacto" className="rounded-full border border-tinta/30 px-8 py-3.5 font-semibold transition hover:border-esmeralda hover:text-esmeralda">
-                  Contacto
-                </a>
-              </div>
+            <Reveal delay={0.16}>
+              <small>Cifras reportadas por la Alcaldía de Cali.</small>
             </Reveal>
           </div>
-          <Reveal delay={0.2}>
-            <figure>
-              <div
-                role="img"
-                aria-label="Espacio reservado para el retrato oficial de Mábel Lara"
-                className="photo-frame relative aspect-[4/5] w-full overflow-hidden rounded-t-[999px] border border-hueso"
-              >
-                <span className="absolute inset-x-0 bottom-0 h-1.5 bg-sol" />
+          <Reveal delay={0.1}>
+            <figure className="stats-photo">
+              <div className="frame">
+                <ParallaxImage
+                  src={img("cristo-rey-en-cali-colombia.jpg")}
+                  alt="Estatua del Cristo Rey de Cali con los brazos abiertos contra un cielo azul"
+                  width={1920}
+                  height={1285}
+                  shift={6}
+                />
               </div>
-              <figcaption className="mt-3 text-sm text-tinta/60">Retrato oficial por incluir</figcaption>
+              <figcaption className="photo-cap">Cristo Rey, Cali</figcaption>
             </figure>
           </Reveal>
         </section>
 
-        <section aria-label="Datos clave" className="border-y border-hueso bg-hueso/40">
-          <dl className="mx-auto grid max-w-6xl gap-8 px-6 py-10 sm:grid-cols-3">
-            {hechos.map((h) => (
-              <div key={h.dato} className="flex items-baseline gap-5">
-                <dt className="font-serif text-5xl font-medium text-esmeralda">{h.dato}</dt>
-                <dd className="max-w-[16rem] text-base leading-snug text-tinta/80">{h.texto}</dd>
-              </div>
-            ))}
-          </dl>
-        </section>
-
-        <section id="trayectoria" className="mx-auto max-w-6xl px-6 py-28">
-          <Reveal>
-            <Eyebrow>Periodismo</Eyebrow>
-            <h2 className="mt-4 max-w-2xl font-serif text-5xl font-medium leading-tight">
-              Dos décadas frente a la cámara y al micrófono
-            </h2>
-            <div className="rule mt-8" />
-          </Reveal>
-          <ol className="mt-4">
-            {periodismo.map((it, i) => (
-              <li key={it.year + it.title}>
-                <Reveal delay={i * 0.04}>
-                  <div className="grid gap-2 border-b border-hueso py-8 md:grid-cols-[8rem_1fr_1.4fr] md:gap-8">
-                    <p className="font-serif text-3xl text-esmeralda">{it.year}</p>
-                    <h3 className="font-serif text-2xl font-medium">{it.title}</h3>
-                    <p className="text-tinta/75">{it.text}</p>
-                  </div>
-                </Reveal>
-              </li>
-            ))}
-          </ol>
-        </section>
-
-        <section id="servicio" className="bg-tinta text-marfil">
-          <div className="mx-auto max-w-6xl px-6 py-28">
+        <section className="showcase wrap" id="libro" aria-labelledby="libro-h">
+          <div className="showcase-top">
             <Reveal>
-              <Eyebrow light>Servicio público</Eyebrow>
-              <h2 className="mt-4 max-w-2xl font-serif text-5xl font-medium leading-tight">
-                Del periodismo a la gestión de ciudad
-              </h2>
-            </Reveal>
-            <div className="mt-14 grid gap-px bg-marfil/15 md:grid-cols-2">
-              {servicio.map((s, i) => (
-                <Reveal key={s.title} delay={i * 0.06}>
-                  <article className="h-full bg-tinta p-8 md:p-10">
-                    <p className="font-serif text-2xl text-sol">{s.year}</p>
-                    <h3 className="mt-3 font-serif text-3xl font-medium leading-snug">{s.title}</h3>
-                    <p className="mt-4 text-marfil/75">{s.text}</p>
-                  </article>
-                </Reveal>
-              ))}
-            </div>
-            <dl className="mt-20 grid grid-cols-2 gap-10 lg:grid-cols-4">
-              {cifras.map((c) => (
-                <div key={c.label} className="flex flex-col-reverse border-t border-sol/60 pt-5">
-                  <dt className="mt-2 text-base text-marfil/75">{c.label}</dt>
-                  <dd className="font-serif text-6xl font-medium text-sol">
-                    <Counter to={c.n} suffix={c.suffix} />
-                  </dd>
-                </div>
-              ))}
-            </dl>
-            <p className="mt-8 text-sm text-marfil/55">Cifras reportadas por la Alcaldía de Cali.</p>
-          </div>
-        </section>
-
-        <section id="voz" className="mx-auto max-w-6xl px-6 py-28">
-          <Reveal>
-            <Eyebrow>Su voz</Eyebrow>
-            <blockquote className="mt-6 max-w-4xl font-serif text-4xl font-medium italic leading-tight sm:text-6xl">
-              “Me costó tener una voz, no me voy a silenciar.”
-            </blockquote>
-            <p className="mt-6 text-tinta/60">Mábel Lara, entrevista con Kienyke</p>
-          </Reveal>
-          <div className="mt-16 grid gap-10 md:grid-cols-3">
-            {pilares.map((p, i) => (
-              <Reveal key={p.t} delay={i * 0.08}>
-                <div className="border-t-2 border-esmeralda pt-5">
-                  <h3 className="font-serif text-3xl font-medium">{p.t}</h3>
-                  <p className="mt-3 text-tinta/75">{p.p}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </section>
-
-        <section id="libro" className="bg-hueso/50">
-          <div className="mx-auto grid max-w-6xl items-center gap-16 px-6 py-28 md:grid-cols-[0.8fr_1.2fr]">
-            <Reveal>
-              <div
-                aria-hidden
-                className="mx-auto flex aspect-[3/4] w-64 flex-col justify-between bg-esmeralda p-8 text-marfil shadow-xl"
-              >
-                <span className="text-xs font-semibold uppercase tracking-[0.25em] text-sol">Mábel Lara</span>
-                <span className="font-serif text-4xl font-medium italic leading-tight">Pelo libre, alma libre</span>
-              </div>
+              <h2 id="libro-h">Pelo libre, alma libre</h2>
             </Reveal>
             <Reveal delay={0.1}>
-              <Eyebrow>Libro · 2025</Eyebrow>
-              <h2 className="mt-4 font-serif text-5xl font-medium leading-tight">Pelo libre, alma libre</h2>
-              <p className="mt-6 max-w-xl text-tinta/80">
-                Su decisión de presentar las noticias con su cabello natural la llevó a revisar su propia vida y a
-                investigar historias de resistencia e identidad de personas afrodescendientes en Colombia y el mundo.
+              <p>
+                Presentar las noticias con su cabello natural la llevó a revisar su propia vida y a investigar
+                historias de resistencia e identidad de personas afrodescendientes en Colombia y el mundo. Un libro de
+                302 páginas, publicado en 2025.
               </p>
-              <p className="mt-4 max-w-xl text-tinta/80">
-                Lo presentó en la Fiesta del Libro de Villavicencio 2026.
-              </p>
-              <a
-                href="https://www.librerianacional.com/pelo-libre-alma-libre/p"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-8 inline-block rounded-full bg-tinta px-8 py-3.5 font-semibold text-marfil transition hover:bg-esmeralda"
-              >
-                Conseguir el libro
-              </a>
             </Reveal>
           </div>
+          <div className="specimens" aria-hidden="true">
+            <div className="specimen">
+              <b>Pelo</b>
+            </div>
+            <div className="specimen">
+              <b>Alma</b>
+            </div>
+          </div>
+          <p className="showcase-link">
+            <a
+              className="link"
+              href="https://www.librerianacional.com/pelo-libre-alma-libre/p"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Conseguir el libro
+            </a>
+          </p>
         </section>
 
-        <section id="reconocimientos" className="mx-auto max-w-6xl px-6 py-28">
-          <Reveal>
-            <Eyebrow>Reconocimientos</Eyebrow>
-            <h2 className="mt-4 font-serif text-5xl font-medium leading-tight">Premios y distinciones</h2>
-            <div className="rule mt-8" />
-          </Reveal>
-          <ul>
-            {premios.map(([year, title, text], i) => (
-              <li key={title}>
-                <Reveal delay={i * 0.05}>
-                  <div className="grid gap-2 border-b border-hueso py-8 md:grid-cols-[10rem_1fr_1.2fr] md:gap-8">
-                    <p className="font-serif text-3xl text-esmeralda">{year}</p>
-                    <h3 className="font-serif text-2xl font-medium">{title}</h3>
-                    <p className="text-tinta/75">{text}</p>
-                  </div>
-                </Reveal>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <section id="contacto" className="bg-tinta text-marfil">
-          <div className="mx-auto max-w-4xl px-6 py-28 text-center">
+        <section className="field-step section wrap recog" id="reconocimientos" aria-labelledby="rec-h">
+          <div>
             <Reveal>
-              <Eyebrow light>Contacto</Eyebrow>
-              <h2 className="mt-4 font-serif text-5xl font-medium leading-tight">Hablemos</h2>
-              <p className="mx-auto mt-6 max-w-xl text-marfil/75">
-                Para entrevistas, conferencias y proyectos, escríbele por sus redes. Pronto habrá un correo de
-                contacto directo.
-              </p>
-              <div className="mt-10 flex flex-wrap justify-center gap-4">
-                <a
-                  href="https://x.com/MabelLaraNews"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-full bg-sol px-8 py-3.5 font-semibold text-tinta transition hover:bg-marfil"
-                >
-                  X · @MabelLaraNews
-                </a>
-                <a
-                  href="https://www.instagram.com/mabellaranews/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-full border border-marfil/40 px-8 py-3.5 font-semibold transition hover:border-sol hover:text-sol"
-                >
-                  Instagram · @mabellaranews
-                </a>
-              </div>
+              <h2 id="rec-h">Premios y cargos</h2>
+              <h3>Reconocimientos</h3>
+              <ul>
+                {premios.map(([t, y]) => (
+                  <li key={t}>
+                    <span>{t}</span>
+                    <span>{y}</span>
+                  </li>
+                ))}
+              </ul>
+              <h3>Servicio público</h3>
+              <ul>
+                {cargos.map(([t, y]) => (
+                  <li key={t}>
+                    <span>{t}</span>
+                    <span>{y}</span>
+                  </li>
+                ))}
+              </ul>
             </Reveal>
+          </div>
+          <Reveal delay={0.1}>
+            <figure>
+              <div className="frame">
+                <ParallaxImage
+                  src={img("atardecer-en-el-pacifico-colombiano-10280037553.jpg")}
+                  alt="Atardecer en una playa del Pacífico colombiano, con una palmera caída y una persona caminando en la orilla"
+                  width={1920}
+                  height={1279}
+                  shift={6}
+                />
+              </div>
+              <figcaption className="photo-cap">Pacífico colombiano, su región de origen</figcaption>
+            </figure>
+          </Reveal>
+        </section>
+
+        <section className="field-ink wrap quote" aria-label="Cita">
+          <div className="quote-text">
+            <Reveal>
+              <blockquote>“Me costó tener una voz, no me voy a silenciar.”</blockquote>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <cite>Mábel Lara, en entrevista con Kienyke</cite>
+            </Reveal>
+          </div>
+          <Reveal delay={0.1}>
+            <figure className="quote-photo">
+              <div className="frame">
+                <ParallaxImage
+                  src={img("carnaval-del-cali-viejo-en-la-feria.jpg")}
+                  alt="Dos bailarinas con turbantes y sombreros de colores en un desfile de la Feria de Cali"
+                  width={1920}
+                  height={1440}
+                  shift={5}
+                />
+              </div>
+              <figcaption className="photo-cap">Carnaval del Cali Viejo, Feria de Cali</figcaption>
+            </figure>
+          </Reveal>
+        </section>
+
+        <section className="field-green wrap contact" id="contacto" aria-labelledby="contact-h">
+          <Reveal>
+            <p className="ask">Para entrevistas, conferencias y proyectos, escríbele por sus redes.</p>
+          </Reveal>
+          <h2 id="contact-h">
+            <a href="https://x.com/MabelLaraNews" target="_blank" rel="noopener noreferrer">
+              @MabelLaraNews
+            </a>
+          </h2>
+          <div className="contact-meta">
+            <span>Cali, Colombia</span>
+            <nav aria-label="Redes sociales">
+              <a href="https://x.com/MabelLaraNews" target="_blank" rel="noopener noreferrer">
+                X
+              </a>
+              <a href="https://www.instagram.com/mabellaranews/" target="_blank" rel="noopener noreferrer">
+                Instagram
+              </a>
+            </nav>
           </div>
         </section>
       </main>
 
-      <footer className="bg-tinta py-8 text-center text-sm text-marfil/50">
-        © 2026 Mábel Lara · Sitio en construcción
+      <footer className="foot">
+        <div className="wrap">
+          <div className="foot-cols">
+            <div>
+              <h2>Mábel Lara</h2>
+              <p style={{ color: "var(--on-dark-soft)", maxWidth: "26rem" }}>
+                Periodista, politóloga e internacionalista. Sitio en construcción.
+              </p>
+            </div>
+            <div>
+              <h2>Secciones</h2>
+              <ul>
+                <li>
+                  <a href="#trayectoria">Trayectoria</a>
+                </li>
+                <li>
+                  <a href="#gestion">Gestión en Cali</a>
+                </li>
+                <li>
+                  <a href="#libro">Libro</a>
+                </li>
+                <li>
+                  <a href="#reconocimientos">Premios y cargos</a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h2>Redes</h2>
+              <ul>
+                <li>
+                  <a href="https://x.com/MabelLaraNews" target="_blank" rel="noopener noreferrer">
+                    X, @MabelLaraNews
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.instagram.com/mabellaranews/" target="_blank" rel="noopener noreferrer">
+                    Instagram, @mabellaranews
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <p className="credits" style={{ marginTop: 56 }}>
+            Fotografías de Cali y el Pacífico, ajenas a Mábel Lara:{" "}
+            <a href="https://commons.wikimedia.org/wiki/File:Festival_Petronio_%C3%81lvarez_(Cali).jpg">
+              “Festival Petronio Álvarez (Cali)”
+            </a>{" "}
+            de Julián Salazar Valencia,{" "}
+            <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>;{" "}
+            <a href="https://commons.wikimedia.org/wiki/File:Atardecer_en_el_pac%C3%ADfico_colombiano_(10280037553).jpg">
+              “Atardecer en el pacífico colombiano”
+            </a>{" "}
+            de Carlos Andrés Reyes, <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a>;{" "}
+            <a href="https://commons.wikimedia.org/wiki/File:Cristo_Rey_en_Cali,_Colombia.jpg">
+              “Cristo Rey en Cali, Colombia”
+            </a>{" "}
+            de Mario Carvajal, <a href="https://creativecommons.org/licenses/by/2.0">CC BY 2.0</a>;{" "}
+            <a href="https://commons.wikimedia.org/wiki/File:CARNAVAL_DEL_CALI_VIEJO_EN_LA_FERIA_DE_CALI_2015.JPG">
+              “Carnaval del Cali Viejo en la Feria de Cali 2015”
+            </a>{" "}
+            de Hectorangelazul, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>. Vía Wikimedia
+            Commons.
+          </p>
+          <div className="foot-legal">
+            <span>© 2026 Mábel Lara</span>
+            <a href="#inicio">Volver arriba</a>
+          </div>
+        </div>
+        <div className="foot-name" aria-hidden="true">
+          Mábel Lara
+        </div>
       </footer>
     </>
   );
