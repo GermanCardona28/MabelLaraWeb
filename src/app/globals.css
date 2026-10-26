@@ -1,30 +1,30 @@
 @import "tailwindcss";
 
 :root {
-  --tinta: #0f1b2d;
-  --ocre: #d9a21b;
-  --terracota: #b5482a;
-  --selva: #1f6b4f;
-  --crema: #faf5eb;
-  --arena: #e8dcc4;
+  --tinta: #0e1f3d;
+  --tinta-suave: #1b2f55;
+  --marfil: #f7f4ee;
+  --hueso: #ebe5d8;
+  --esmeralda: #0f6b54;
+  --sol: #e8b931;
 }
 
 @theme inline {
   --color-tinta: var(--tinta);
-  --color-ocre: var(--ocre);
-  --color-terracota: var(--terracota);
-  --color-selva: var(--selva);
-  --color-crema: var(--crema);
-  --color-arena: var(--arena);
-  --font-sans: var(--font-inter);
-  --font-serif: var(--font-fraunces);
+  --color-tinta-suave: var(--tinta-suave);
+  --color-marfil: var(--marfil);
+  --color-hueso: var(--hueso);
+  --color-esmeralda: var(--esmeralda);
+  --color-sol: var(--sol);
+  --font-sans: var(--font-source);
+  --font-serif: var(--font-newsreader);
 }
 
 html {
   scroll-behavior: auto;
 }
-
-html.lenis, html.lenis body {
+html.lenis,
+html.lenis body {
   height: auto;
 }
 .lenis.lenis-smooth {
@@ -32,23 +32,38 @@ html.lenis, html.lenis body {
 }
 
 body {
-  background: var(--crema);
+  background: var(--marfil);
   color: var(--tinta);
   font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.65;
 }
 
 ::selection {
-  background: var(--ocre);
+  background: var(--sol);
   color: var(--tinta);
 }
 
-@keyframes marquee {
-  to { transform: translateX(-50%); }
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--sol);
+  outline-offset: 3px;
 }
-.marquee-track {
-  animation: marquee 40s linear infinite;
+
+.rule {
+  height: 1px;
+  background: linear-gradient(to right, var(--esmeralda) 0 64px, var(--hueso) 64px 100%);
+}
+
+.photo-frame {
+  background:
+    repeating-linear-gradient(135deg, transparent 0 14px, rgb(14 31 61 / 0.05) 14px 15px),
+    var(--hueso);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .marquee-track { animation: none; }
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
 }

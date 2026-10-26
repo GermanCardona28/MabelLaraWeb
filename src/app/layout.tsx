@@ -1,28 +1,29 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Newsreader, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
   subsets: ["latin"],
+  style: ["normal", "italic"],
   axes: ["opsz"],
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const source = Source_Sans_3({
+  variable: "--font-source",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Mábel Lara | Periodista",
+  title: "Mábel Lara | Periodista y politóloga",
   description:
-    "Periodista colombiana. Veinte años en televisión y radio, y una etapa de servicio público en Cali.",
+    "Periodista, politóloga e internacionalista colombiana. Más de veinte años en televisión y radio, y una etapa de servicio público en Cali.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es" className={`${fraunces.variable} ${inter.variable} antialiased`}>
+    <html lang="es" className={`${newsreader.variable} ${source.variable} antialiased`}>
       <body>
         <SmoothScroll />
         {children}
