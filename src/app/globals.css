@@ -644,9 +644,7 @@ button:focus-visible {
   text-transform: uppercase;
   white-space: nowrap;
   color: var(--paper);
-  height: 0.74em;
-  padding-top: 0.12em;
-  overflow: hidden;
+  padding: 0.04em 0 0.12em;
   text-align: center;
 }
 
